@@ -1,5 +1,7 @@
-package com.th6;
+package com.th6.Job;
 
+import com.th6.Util.DataGenerator;
+import com.th6.Util.SimpleStringSchema;
 import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;
 import org.apache.flink.connector.kafka.sink.KafkaSink;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;

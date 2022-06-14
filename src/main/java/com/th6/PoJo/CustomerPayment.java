@@ -1,4 +1,4 @@
-package com.th6;
+package com.th6.PoJo;
 
 import java.util.concurrent.ThreadLocalRandom;
 

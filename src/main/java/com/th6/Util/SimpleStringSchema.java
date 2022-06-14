@@ -1,4 +1,4 @@
-package com.th6;
+package com.th6.Util;
 
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.serialization.SerializationSchema;

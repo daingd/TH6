@@ -1,12 +1,13 @@
-package com.th6;
+package com.th6.Job;
 
+import com.th6.PoJo.CustomerPayment;
+import com.th6.PoJo.OrderPayment;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.common.state.ValueState;
 import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.java.functions.KeySelector;
-import org.apache.flink.api.java.tuple.Tuple4;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
@@ -21,6 +22,7 @@ import java.io.IOException;
 
 public class CustomerPaymentJob {
 
+    private static final String DESTINATION_TOPIC_NAME = "CustomerPayment_Thin181197";
     private final KafkaSource<String> source;
 
     public CustomerPaymentJob(KafkaSource<String> source) {
@@ -35,12 +37,13 @@ public class CustomerPaymentJob {
 
     private void execute() throws Exception {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        SingleOutputStreamOperator<CustomerPayment> kafka_source = env.fromSource(source, WatermarkStrategy.forMonotonousTimestamps(), "Kafka Source")
+        SingleOutputStreamOperator<CustomerPayment> kafkaSource = env.fromSource(source, WatermarkStrategy.forMonotonousTimestamps(), "Kafka Source")
                 .flatMap(new Tokenizer())
                 .keyBy(new CustomerPaymentKeySelector())
                 .process(new ProcessTotalSum());
-        kafka_source.print();
-        kafka_source.sinkTo(OrderPaymentJob.createSink(OrderPaymentJob.BROKERS,""))
+        kafkaSource.print();
+        kafkaSource.map(CustomerPayment::toString)
+                .sinkTo(OrderPaymentJob.createSink(OrderPaymentJob.BROKERS, DESTINATION_TOPIC_NAME));
 
         env.execute("Provide customerPayment");
     }
