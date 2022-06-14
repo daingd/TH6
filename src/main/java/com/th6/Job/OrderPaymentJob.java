@@ -8,7 +8,7 @@ import org.apache.flink.streaming.api.functions.source.SourceFunction;
 public class OrderPaymentJob {
 
     public static final String BROKERS = "localhost:9092";
-    public static final String TOPIC_NAME = "OrderPayment_Thin181197";
+    public static final String TOPIC_NAME = "OrderPayment_Thin181196";
     private final SourceFunction<String> source;
 
     public OrderPaymentJob(SourceFunction<String> source) {

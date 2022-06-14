@@ -8,32 +8,17 @@ public class OrderPayment {
     private int customerId;
     private int brandID;
     private String saleOrderId;
-    private int transactionType;
-    private  int transactionId;
+    private int paymentType;
+    private  int transactionTypeId;
     private long payTime;
-
-    @Override
-    public String toString() {
-        return "[{" +
-                "\"customerId\":" + customerId +
-                ", \"brandID\":" + brandID +
-                ", \"saleOrderId\":\"" + saleOrderId + '\"' +
-                ", \"transactionType\":" + transactionType +
-                ", \"transactionId\":" + transactionId +
-                ", \"payTime\":" + payTime +
-                ", \"totalAmount\":" + totalAmount +
-                "}]";
-
-    }
-
     private float totalAmount;
 
     private OrderPayment(int customerId, int brandID, String saleOrderId, int transactionType, int transactionId, long payTime, float totalAmount) {
         this.customerId = customerId;
         this.brandID = brandID;
         this.saleOrderId = saleOrderId;
-        this.transactionType = transactionType;
-        this.transactionId = transactionId;
+        this.paymentType = transactionType;
+        this.transactionTypeId = transactionId;
         this.payTime = payTime;
         this.totalAmount = totalAmount;
     }
@@ -46,11 +31,11 @@ public class OrderPayment {
         int customerId = random.nextInt(1,20);
         int brandID = random.nextInt(1,1000);
         String saleOrderId = String.valueOf(random.nextInt(100000,999999));
-        int transactionType = random.nextInt(1,5);
-        int transactionId = transactionType == 1 ? random.nextInt(1,11) : -1;
+        int paymentType = random.nextInt(1,5);
+        int transactionTypeId = paymentType == 1 ? random.nextInt(1,11) : -1;
         long payTime = Instant.now().toEpochMilli();
         float totalAmount = Math.round((100000 + random.nextDouble(50000,500000)));
-        return new OrderPayment(customerId,brandID,saleOrderId,transactionType,transactionId,payTime,totalAmount);
+        return new OrderPayment(customerId,brandID,saleOrderId,paymentType,transactionTypeId,payTime,totalAmount);
     }
 
     public int getCustomerId() {
@@ -77,12 +62,12 @@ public class OrderPayment {
         this.saleOrderId = saleOrderId;
     }
 
-    public int getTransactionType() {
-        return transactionType;
+    public int getPaymentType() {
+        return paymentType;
     }
 
-    public void setTransactionType(int transactionType) {
-        this.transactionType = transactionType;
+    public void setPaymentType(int paymentType) {
+        this.paymentType = paymentType;
     }
 
     public long getPayTime() {
@@ -101,11 +86,24 @@ public class OrderPayment {
         this.totalAmount = totalAmount;
     }
 
-    public int getTransactionId() {
-        return transactionId;
+    public int getTransactionTypeId() {
+        return transactionTypeId;
     }
 
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
+    public void setTransactionTypeId(int transactionTypeId) {
+        this.transactionTypeId = transactionTypeId;
+    }
+    @Override
+    public String toString() {
+        return "[{" +
+                "\"customerId\":" + customerId +
+                ", \"brandID\":" + brandID +
+                ", \"saleOrderId\":\"" + saleOrderId + '\"' +
+                ", \"paymentType\":" + paymentType +
+                ", \"transactionTypeId\":" + transactionTypeId +
+                ", \"payTime\":" + payTime +
+                ", \"totalAmount\":" + totalAmount +
+                "}]";
+
     }
 }
