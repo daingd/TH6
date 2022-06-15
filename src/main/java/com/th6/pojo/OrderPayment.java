@@ -1,4 +1,4 @@
-package com.th6.PoJo;
+package com.th6.pojo;
 
 
 import java.time.Instant;

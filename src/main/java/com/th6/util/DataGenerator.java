@@ -1,6 +1,6 @@
-package com.th6.Util;
+package com.th6.util;
 
-import com.th6.PoJo.OrderPayment;
+import com.th6.pojo.OrderPayment;
 
 import java.io.Serializable;
 

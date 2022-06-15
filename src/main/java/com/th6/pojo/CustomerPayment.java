@@ -1,8 +1,9 @@
-package com.th6.PoJo;
+package com.th6.pojo;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class CustomerPayment  {
+public class CustomerPayment  implements Serializable {
     private String customerPaymentId;
     private int customerId;
     private int brandID;
